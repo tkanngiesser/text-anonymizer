@@ -67,6 +67,10 @@ text-anonymizer deanonymize input.txt output.txt --map_file map.json
 - [ ] Add tests for if anonymization affects LLM (such as OpenAI) response quality
 - [ ] Add tests for if anonymization affects Reranking (such as Cohere) quality
 - [ ] Change replacements to be realistic instead of placeholders (could possibly affect AI apps)
+- [ ] Improve preservation of specific details (numbers, dates, times) while maintaining anonymity
+- [ ] Enhance consistency in anonymizing company names and other entities
+- [ ] Develop a method to retain more information in anonymized summaries
+- [ ] Implement a configurable level of anonymization to balance privacy and information preservation
 
 ## Development
 
@@ -140,6 +144,3 @@ We asked several questions about the original, anonymized, and deanonymized text
 4. **Meeting Details**:
    - The proposed meeting time was anonymized, replacing "next Tuesday at 2 PM EST" with placeholders.
 
-### Conclusion
-
-The Text Anonymizer effectively removes personally identifiable information while preserving the general context and key points of the text. However, it may impact the retrieval of specific details like exact numbers, dates, and times. Users should be aware of this trade-off between privacy and information preservation when using the tool.
