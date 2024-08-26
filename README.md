@@ -1,6 +1,6 @@
 # Text Anonymizer
 
-Text Anonymizer is a Python library that anonymizes text by replacing entities with placeholders and allows for de-anonymization. It uses the spaCy library for natural language processing and entity recognition.
+Text Anonymizer is a Python library that anonymizes text by replacing entities with placeholders and allows for de-anonymization. It uses the spaCy library for natural language processing and entity recognition. The intended usage is for anonymizing text data before sending it to a language model (LLM) for processing, and then de-anonymizing the output to restore the original text. This can be useful in various scenarios, such as when working with sensitive data or when you want to maintain the privacy of individuals mentioned in the text. 
 
 ## Features
 
@@ -62,9 +62,11 @@ text-anonymizer anonymize input.txt output.txt
 text-anonymizer deanonymize input.txt output.txt --map_file map.json
 ```
 
-## Documentation
+## Todo
 
-For detailed documentation, including API reference and advanced usage, please visit our [documentation page](https://text-anonymizer.readthedocs.io).
+- [ ] Add tests for if anonymization affects LLM response quality
+- [ ] Add tests for if anonymization affects Reranking quality
+- [ ] Change replacements to be realistic instead of placeholders (could possibly affect AI apps)
 
 ## Development
 
