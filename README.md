@@ -109,3 +109,37 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
+
+## Evaluation Report
+
+We conducted an evaluation of the Text Anonymizer to assess its impact on text content and information retrieval. Here are the key findings:
+
+### Summary Comparison
+
+1. **Original Summary Length**: 519 characters
+2. **Anonymized Summary Length**: 267 characters
+3. **Summary Length Difference**: 252 characters
+
+The anonymized summary is significantly shorter, which suggests that some specific details are omitted in the anonymization process.
+
+### Information Retrieval
+
+We asked several questions about the original, anonymized, and deanonymized texts. Here are the key observations:
+
+1. **Sender and Recipient Identification**: 
+   - The anonymized text correctly preserved the sender's company (TechInnovate Solutions) but replaced names with placeholders.
+   - The recipient's name was anonymized, but their company name was not consistently preserved.
+
+2. **Main Purpose of the Email**: 
+   - The main purpose (proposing an AI-driven supply chain optimization system) was preserved in both anonymized and deanonymized versions.
+
+3. **Key Benefits of the AI System**:
+   - All four key benefits were preserved in both anonymized and deanonymized versions.
+   - Specific numbers (e.g., 95% accuracy) were replaced with placeholders in the anonymized version.
+
+4. **Meeting Details**:
+   - The proposed meeting time was anonymized, replacing "next Tuesday at 2 PM EST" with placeholders.
+
+### Conclusion
+
+The Text Anonymizer effectively removes personally identifiable information while preserving the general context and key points of the text. However, it may impact the retrieval of specific details like exact numbers, dates, and times. Users should be aware of this trade-off between privacy and information preservation when using the tool.
