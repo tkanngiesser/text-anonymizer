@@ -47,22 +47,9 @@ print("Original text:", original_text)
 # Output: John Smith from Acme Corporation called me at john.smith@acme.com.
 ```
 
-## API Reference
+## Documentation
 
-### `anonymize(text: str) -> Tuple[str, Dict[str, str]]`
-
-Anonymizes the given text by replacing identified entities with placeholders.
-
-- `text`: The text to be anonymized.
-- Returns: A tuple containing the anonymized text and the anonymization map.
-
-### `deanonymize(anonymized_text: str, anonymization_map: Dict[str, str]) -> str`
-
-Restores the original text by replacing placeholders with their corresponding original entities.
-
-- `anonymized_text`: The anonymized text.
-- `anonymization_map`: A dictionary that maps placeholders to their corresponding original entities.
-- Returns: The de-anonymized text.
+For detailed documentation, including API reference and advanced usage, please visit our [documentation page](https://text-anonymizer.readthedocs.io).
 
 ## Development
 
@@ -96,8 +83,12 @@ To set up the development environment:
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please see our [Contributing Guide](CONTRIBUTING.md) for more details.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes.
