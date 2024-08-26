@@ -31,7 +31,7 @@ COPY . .
 
 RUN poetry install
 
-CMD ["python","-m", "myapplication.main"]
+CMD ["python","-m", "text_anonymizer.main"]
 
 FROM python-base as production
 
@@ -40,4 +40,4 @@ WORKDIR $PYSETUP_PATH
 COPY ./src/ ./
 USER 10000
 
-CMD ["python","-m", "myapplication.main"]
+CMD ["python","-m", "text_anonymizer.main"]

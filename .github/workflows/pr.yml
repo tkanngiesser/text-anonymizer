@@ -46,7 +46,7 @@ jobs:
       - name: Install library
         run: poetry install --no-interaction
       - name: Run application
-        run: poetry run myapplication
+        run: poetry run text_anonymizer
       - name: Test with pytest
         run: poetry run pytest tests --cov=src
 
