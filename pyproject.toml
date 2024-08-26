@@ -1,15 +1,15 @@
 [tool.poetry]
-name = "python-boilerplate"
+name = "text-anonymization"
 version = "0.1.0"
-description = "Python boilerplate"
-authors = ["Samuel MARLHENS <samuel.marlhens@proton.me>"]
+description = "Text anonymization library"
+authors = ["Viktor Bezdek <viktor.bezdek@gmail.com>"]
 packages = [
     { include = "*", from = "src" }
 ]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/smarlhens/python-boilerplate#readme"
-repository = "https://github.com/smarlhens/python-boilerplate"
+homepage = "https://github.com/viktorbezdek/text-anonymization#readme"
+repository = "https://github.com/viktorbezdek/text-anonymization"
 
 [tool.poetry.scripts]
 myapplication = "text_anonymizer.main:main"
@@ -90,4 +90,3 @@ extend-select = [
 
 [tool.mypy]
 files = ["src", "tests"]
-strict = "true"
