@@ -147,41 +147,4 @@ def test_deanonymize_text(mock_json_load, mock_file):
     assert mock_file.call_count == 3  # Once for reading input, once for reading map, once for writing output
     mock_json_load.assert_called_once()
 
-@pytest.mark.skipif(not os.environ.get("ANTHROPIC_API_KEY"), reason="Anthropic API key not set")
-def test_anonymization_effect_on_llm_response():
-    anthropic = Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
-    
-    original_text = "John Doe from Acme Corp in New York is working on a new project. His email is john.doe@acme.com."
-    anonymized_text, anonymization_map = anonymize(original_text)
-    
-    # Function to get LLM response
-    def get_llm_response(text):
-        prompt = f"{HUMAN_PROMPT} Please summarize the following text: {text}{AI_PROMPT}"
-        response = anthropic.completions.create(
-            model="claude-2",
-            max_tokens_to_sample=300,
-            prompt=prompt
-        )
-        return response.completion.strip()
-    
-    # Get responses for original and anonymized text
-    original_response = get_llm_response(original_text)
-    anonymized_response = get_llm_response(anonymized_text)
-    
-    # Deanonymize the anonymized response
-    deanonymized_response = deanonymize(anonymized_response, anonymization_map)
-    
-    # Compare responses
-    assert len(original_response) > 0
-    assert len(deanonymized_response) > 0
-    
-    # Check if the deanonymized response contains key information from the original text
-    assert "John Doe" in deanonymized_response
-    assert "Acme Corp" in deanonymized_response
-    assert "New York" in deanonymized_response
-    
-    # Compare the overall structure and length of the responses
-    assert abs(len(original_response) - len(deanonymized_response)) < 50  # Allow for some variation
-    
-    # You might want to use more sophisticated comparison methods here,
-    # such as semantic similarity measures, depending on your specific needs.
+# The LLM evaluation test has been moved to evaluations/llm_evaluation.py
