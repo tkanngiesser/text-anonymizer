@@ -11,8 +11,6 @@ readme = "README.md"
 homepage = "https://github.com/viktorbezdek/text-anonymization#readme"
 repository = "https://github.com/viktorbezdek/text-anonymization"
 
-[tool.poetry.scripts]
-myapplication = "text_anonymizer.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -90,5 +88,3 @@ extend-select = [
 
 [tool.mypy]
 files = ["src", "tests"]
-[tool.poetry.scripts]
-text_anonymizer = "text_anonymizer.main:main"

@@ -1,71 +1,68 @@
 # Text Anonymizer
 
-Text Anonymizer is a Python tool that recognizes entities in text, anonymizes them, and allows for de-anonymization. It uses the spaCy library for natural language processing and entity recognition.
+Text Anonymizer is a Python library that anonymizes text by replacing entities with placeholders and allows for de-anonymization. It uses the spaCy library for natural language processing and entity recognition.
 
 ## Features
 
-- Entity recognition for various types (PERSON, ORGANIZATION, LOCATION, etc.)
 - Text anonymization by replacing entities with placeholders
 - De-anonymization to restore original text
+- Entity recognition for various types (PERSON, ORGANIZATION, LOCATION, EMAIL, URL, etc.)
 
 ## Installation
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/viktorbezdek/text-anonymizer.git
-   cd text-anonymizer
-   ```
+You can install the Text Anonymizer library using pip:
 
-2. Create a virtual environment (optional but recommended):
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
-   ```
+```
+pip install text-anonymizer
+```
 
-3. Install the required packages:
-   ```
-   pip install -r requirements.txt
-   ```
+This will also install the required dependencies, including spaCy.
 
-4. Download the spaCy English language model:
-   ```
-   python -m spacy download en_core_web_lg
-   ```
+After installation, you need to download the spaCy English language model:
+
+```
+python -m spacy download en_core_web_sm
+```
 
 ## Usage
 
-The main functionality is provided in the `main.py` file. You can use the following functions:
-
-- `recognize_entities(text: str) -> List[Dict]`: Identifies entities in the given text.
-- `anonymize(text: str, entities: List[Dict]) -> Tuple[str, Dict]`: Replaces identified entities with placeholders.
-- `deanonymize(text: str, anonymization_map: Dict) -> str`: Restores the original text by replacing placeholders.
-
-Example usage:
+Here's a simple example of how to use the Text Anonymizer:
 
 ```python
-from text_anonymizer.main import recognize_entities, anonymize, deanonymize
+from text_anonymizer import anonymize, deanonymize
 
-text = "John Smith from Acme Corporation called me."
+# Original text
+text = "John Smith from Acme Corporation called me at john.smith@acme.com."
 
-# Recognize entities
-entities = recognize_entities(text)
+# Anonymize the text
+anonymized_text, anonymization_map = anonymize(text)
 
-# Anonymize text
-anonymized_text, anonymization_map = anonymize(text, entities)
+print("Anonymized text:", anonymized_text)
+# Output: [ENTITY_PERSON_1] from [ENTITY_ORG_1] called me at [ENTITY_EMAIL_1].
 
-# De-anonymize text
-de_anonymized_text = deanonymize(anonymized_text, anonymization_map)
+# De-anonymize the text
+original_text = deanonymize(anonymized_text, anonymization_map)
+
+print("Original text:", original_text)
+# Output: John Smith from Acme Corporation called me at john.smith@acme.com.
 ```
 
-## Running the Example
+## API Reference
 
-To run the example provided in the `main.py` file:
+### `anonymize(text: str) -> Tuple[str, Dict[str, str]]`
 
-```
-python src/text_anonymizer/main.py
-```
+Anonymizes the given text by replacing identified entities with placeholders.
 
-This will demonstrate entity recognition, anonymization, and de-anonymization on a sample text.
+- `text`: The text to be anonymized.
+- Returns: A tuple containing the anonymized text and the anonymization map.
+
+### `deanonymize(anonymized_text: str, anonymization_map: Dict[str, str]) -> str`
+
+Restores the original text by replacing placeholders with their corresponding original entities.
+
+- `anonymized_text`: The anonymized text.
+- `anonymization_map`: A dictionary that maps placeholders to their corresponding original entities.
+- Returns: The de-anonymized text.
 
 ## Contributing
 
