@@ -110,14 +110,14 @@ def test_create_parser():
     
     # Test anonymize subcommand
     anonymize_parser = parser._subparsers._group_actions[0].choices['anonymize']
-    assert 'input_file' in anonymize_parser._option_string_actions
-    assert 'output_file' in anonymize_parser._option_string_actions
+    assert '--input_file' in anonymize_parser._option_string_actions
+    assert '--output_file' in anonymize_parser._option_string_actions
     
     # Test deanonymize subcommand
     deanonymize_parser = parser._subparsers._group_actions[0].choices['deanonymize']
-    assert 'input_file' in deanonymize_parser._option_string_actions
-    assert 'output_file' in deanonymize_parser._option_string_actions
-    assert 'map_file' in deanonymize_parser._option_string_actions
+    assert '--input_file' in deanonymize_parser._option_string_actions
+    assert '--output_file' in deanonymize_parser._option_string_actions
+    assert '--map_file' in deanonymize_parser._option_string_actions
 
 @patch('builtins.open', new_callable=mock_open, read_data="John Doe works at Acme Inc.")
 @patch('json.dump')

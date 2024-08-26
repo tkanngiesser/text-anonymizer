@@ -103,13 +103,13 @@ def create_parser():
 
     # Anonymize subcommand
     anonymize_parser = subparsers.add_parser("anonymize", help="Anonymize text")
-    anonymize_parser.add_argument("input_file", help="Path to the input text file")
-    anonymize_parser.add_argument("output_file", help="Path to the output text file")
+    anonymize_parser.add_argument("--input_file", required=True, help="Path to the input text file")
+    anonymize_parser.add_argument("--output_file", required=True, help="Path to the output text file")
 
     # De-anonymize subcommand
     deanonymize_parser = subparsers.add_parser("deanonymize", help="De-anonymize text")
-    deanonymize_parser.add_argument("input_file", help="Path to the input text file")
-    deanonymize_parser.add_argument("output_file", help="Path to the output text file")
+    deanonymize_parser.add_argument("--input_file", required=True, help="Path to the input text file")
+    deanonymize_parser.add_argument("--output_file", required=True, help="Path to the output text file")
     deanonymize_parser.add_argument("--map_file", required=True, help="Path to the anonymization map file")
 
     return parser
@@ -119,7 +119,7 @@ def anonymize_text(input_file, output_file):
         text = f.read()
 
     entities = recognize_entities(text)
-    anonymized_text, anonymization_map = anonymize(text, entities)
+    anonymized_text, anonymization_map = anonymize(text)
     
     with open(output_file, "w") as f:
         f.write(anonymized_text)
