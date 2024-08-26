@@ -7,6 +7,7 @@ Text Anonymizer is a Python library that anonymizes text by replacing entities w
 - Text anonymization by replacing entities with placeholders
 - De-anonymization to restore original text
 - Entity recognition for various types (PERSON, ORGANIZATION, LOCATION, EMAIL, URL, etc.)
+- Command-line interface for easy usage
 
 ## Installation
 
@@ -26,7 +27,9 @@ python -m spacy download en_core_web_sm
 
 ## Usage
 
-Here's a simple example of how to use the Text Anonymizer:
+### As a Python Library
+
+Here's a simple example of how to use the Text Anonymizer in your Python code:
 
 ```python
 from text_anonymizer import anonymize, deanonymize
@@ -45,6 +48,18 @@ original_text = deanonymize(anonymized_text, anonymization_map)
 
 print("Original text:", original_text)
 # Output: John Smith from Acme Corporation called me at john.smith@acme.com.
+```
+
+### Command-line Interface
+
+Text Anonymizer also provides a command-line interface for easy usage:
+
+```bash
+# Anonymize a text file
+text-anonymizer anonymize input.txt output.txt
+
+# De-anonymize a text file
+text-anonymizer deanonymize input.txt output.txt --map_file map.json
 ```
 
 ## Documentation

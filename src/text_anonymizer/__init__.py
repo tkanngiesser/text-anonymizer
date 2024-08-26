@@ -2,6 +2,7 @@
 
 __version__ = "0.1.0"
 
-from .anonymizer import anonymize, deanonymize
+from .core import anonymize, deanonymize
+from .main import main
 
-__all__ = ["anonymize", "deanonymize"]
+__all__ = ["anonymize", "deanonymize", "main"]
