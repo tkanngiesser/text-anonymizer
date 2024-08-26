@@ -71,12 +71,20 @@ def test_multiple_entities_of_same_type():
     
     assert "[ENTITY_PERSON_1]" in anonymized_text
     assert "[ENTITY_PERSON_2]" in anonymized_text
-    assert "[ENTITY_ORG_3]" in anonymized_text
-    assert "[ENTITY_ORG_4]" in anonymized_text
-    assert "[ENTITY_GPE_5]" in anonymized_text
-    assert "[ENTITY_GPE_6]" in anonymized_text
+    assert "[ENTITY_ORG_1]" in anonymized_text
+    assert "[ENTITY_ORG_2]" in anonymized_text
+    assert "[ENTITY_GPE_1]" in anonymized_text
+    assert "[ENTITY_GPE_2]" in anonymized_text
     
     assert len(anonymization_map) == 6
+    
+    # Check if the entities are correctly mapped
+    assert any("Alice" in value for value in anonymization_map.values())
+    assert any("Bob" in value for value in anonymization_map.values())
+    assert any("Tech Corp" in value for value in anonymization_map.values())
+    assert any("Acme Inc" in value for value in anonymization_map.values())
+    assert any("New York" in value for value in anonymization_map.values())
+    assert any("London" in value for value in anonymization_map.values())
 
 def test_url_recognition():
     text = "Visit our website at https://www.example.com for more information."
