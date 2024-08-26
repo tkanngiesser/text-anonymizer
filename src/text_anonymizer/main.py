@@ -97,7 +97,7 @@ import json
 from .core import recognize_entities, anonymize, deanonymize
 
 
-def main():
+def create_parser():
     parser = argparse.ArgumentParser(description="Text Anonymizer")
     subparsers = parser.add_subparsers(dest="command", help="Subcommands")
 
@@ -112,38 +112,49 @@ def main():
     deanonymize_parser.add_argument("output_file", help="Path to the output text file")
     deanonymize_parser.add_argument("--map_file", required=True, help="Path to the anonymization map file")
 
+    return parser
+
+def anonymize_text(input_file, output_file):
+    with open(input_file, "r") as f:
+        text = f.read()
+
+    entities = recognize_entities(text)
+    anonymized_text, anonymization_map = anonymize(text, entities)
+    
+    with open(output_file, "w") as f:
+        f.write(anonymized_text)
+    
+    map_file = f"{output_file}.json"
+    with open(map_file, "w") as f:
+        json.dump(anonymization_map, f, indent=2)
+    
+    return output_file, map_file
+
+def deanonymize_text(input_file, output_file, map_file):
+    with open(input_file, "r") as f:
+        text = f.read()
+
+    with open(map_file, "r") as f:
+        anonymization_map = json.load(f)
+
+    de_anonymized_text = deanonymize(text, anonymization_map)
+    
+    with open(output_file, "w") as f:
+        f.write(de_anonymized_text)
+    
+    return output_file
+
+def main():
+    parser = create_parser()
     args = parser.parse_args()
 
     if args.command == "anonymize":
-        with open(args.input_file, "r") as f:
-            text = f.read()
-
-        entities = recognize_entities(text)
-        anonymized_text, anonymization_map = anonymize(text, entities)
-        
-        with open(args.output_file, "w") as f:
-            f.write(anonymized_text)
-        
-        map_file = f"{args.output_file}.json"
-        with open(map_file, "w") as f:
-            json.dump(anonymization_map, f, indent=2)
-        
-        print(f"Anonymized text saved to {args.output_file}")
+        output_file, map_file = anonymize_text(args.input_file, args.output_file)
+        print(f"Anonymized text saved to {output_file}")
         print(f"Anonymization map saved to {map_file}")
-
     elif args.command == "deanonymize":
-        with open(args.input_file, "r") as f:
-            text = f.read()
-
-        with open(args.map_file, "r") as f:
-            anonymization_map = json.load(f)
-
-        de_anonymized_text = deanonymize(text, anonymization_map)
-        
-        with open(args.output_file, "w") as f:
-            f.write(de_anonymized_text)
-        
-        print(f"De-anonymized text saved to {args.output_file}")
+        output_file = deanonymize_text(args.input_file, args.output_file, args.map_file)
+        print(f"De-anonymized text saved to {output_file}")
 
 if __name__ == "__main__":
     main()
