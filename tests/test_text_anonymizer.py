@@ -1,5 +1,7 @@
 import pytest
+from unittest.mock import mock_open, patch
 from text_anonymizer.core import recognize_entities, anonymize, deanonymize
+from text_anonymizer.main import create_parser, anonymize_text, deanonymize_text
 
 @pytest.fixture
 def sample_text():
@@ -101,3 +103,44 @@ def test_email_recognition():
     assert "support@example.com" not in anonymized_text
     assert "[ENTITY_EMAIL_1]" in anonymized_text
     assert anonymization_map["[ENTITY_EMAIL_1]"] == "support@example.com"
+
+def test_create_parser():
+    parser = create_parser()
+    assert parser.description == "Text Anonymizer"
+    
+    # Test anonymize subcommand
+    anonymize_parser = parser._subparsers._group_actions[0].choices['anonymize']
+    assert 'input_file' in anonymize_parser._option_string_actions
+    assert 'output_file' in anonymize_parser._option_string_actions
+    
+    # Test deanonymize subcommand
+    deanonymize_parser = parser._subparsers._group_actions[0].choices['deanonymize']
+    assert 'input_file' in deanonymize_parser._option_string_actions
+    assert 'output_file' in deanonymize_parser._option_string_actions
+    assert 'map_file' in deanonymize_parser._option_string_actions
+
+@patch('builtins.open', new_callable=mock_open, read_data="John Doe works at Acme Inc.")
+@patch('json.dump')
+def test_anonymize_text(mock_json_dump, mock_file):
+    input_file = "input.txt"
+    output_file = "output.txt"
+    
+    result_output, result_map = anonymize_text(input_file, output_file)
+    
+    assert result_output == output_file
+    assert result_map == f"{output_file}.json"
+    assert mock_file.call_count == 3  # Once for reading, twice for writing
+    mock_json_dump.assert_called_once()
+
+@patch('builtins.open', new_callable=mock_open, read_data="[ENTITY_PERSON_1] works at [ENTITY_ORG_1].")
+@patch('json.load', return_value={"[ENTITY_PERSON_1]": "John Doe", "[ENTITY_ORG_1]": "Acme Inc"})
+def test_deanonymize_text(mock_json_load, mock_file):
+    input_file = "input.txt"
+    output_file = "output.txt"
+    map_file = "map.json"
+    
+    result = deanonymize_text(input_file, output_file, map_file)
+    
+    assert result == output_file
+    assert mock_file.call_count == 3  # Once for reading input, once for reading map, once for writing output
+    mock_json_load.assert_called_once()
