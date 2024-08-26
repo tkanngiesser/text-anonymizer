@@ -12,7 +12,7 @@ Text Anonymizer is a Python library that anonymizes text by replacing entities w
 
 You can install the Text Anonymizer library using pip:
 
-```
+```bash
 pip install text-anonymizer
 ```
 
@@ -20,7 +20,7 @@ This will also install the required dependencies, including spaCy.
 
 After installation, you need to download the spaCy English language model:
 
-```
+```bash
 python -m spacy download en_core_web_sm
 ```
 
@@ -63,6 +63,36 @@ Restores the original text by replacing placeholders with their corresponding or
 - `anonymized_text`: The anonymized text.
 - `anonymization_map`: A dictionary that maps placeholders to their corresponding original entities.
 - Returns: The de-anonymized text.
+
+## Development
+
+To set up the development environment:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/viktorbezdek/text-anonymizer.git
+   cd text-anonymizer
+   ```
+
+2. Install Poetry (if not already installed):
+   ```bash
+   pip install poetry
+   ```
+
+3. Install dependencies:
+   ```bash
+   poetry install
+   ```
+
+4. Activate the virtual environment:
+   ```bash
+   poetry shell
+   ```
+
+5. Run tests:
+   ```bash
+   pytest
+   ```
 
 ## Contributing
 
