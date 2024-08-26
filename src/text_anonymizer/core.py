@@ -67,8 +67,14 @@ def anonymize(text: str) -> Tuple[str, Dict[str, str]]:
     """
     entities = recognize_entities(text)
     anonymization_map = {}
+    entity_counters = {}
     for entity in reversed(entities):  # Process entities from end to start
-        placeholder = f"[ENTITY_{entity['type']}_{len(anonymization_map) + 1}]"
+        entity_type = entity['type']
+        if entity_type not in entity_counters:
+            entity_counters[entity_type] = 1
+        else:
+            entity_counters[entity_type] += 1
+        placeholder = f"[ENTITY_{entity_type}_{entity_counters[entity_type]}]"
         anonymization_map[placeholder] = entity["text"]
         text = text[: entity["start"]] + placeholder + text[entity["end"] :]
     return text, anonymization_map

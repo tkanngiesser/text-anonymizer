@@ -22,15 +22,15 @@ def test_anonymize(sample_text):
     assert "john.smith@acme.com" not in anonymized_text
     
     assert "[ENTITY_PERSON_1]" in anonymized_text
-    assert "[ENTITY_ORG_2]" in anonymized_text
-    assert "[ENTITY_GPE_3]" in anonymized_text
-    assert "[ENTITY_EMAIL_4]" in anonymized_text
+    assert "[ENTITY_ORG_1]" in anonymized_text
+    assert "[ENTITY_GPE_1]" in anonymized_text
+    assert "[ENTITY_EMAIL_1]" in anonymized_text
     
     assert len(anonymization_map) == 4
     assert anonymization_map["[ENTITY_PERSON_1]"] == "John Smith"
-    assert anonymization_map["[ENTITY_ORG_2]"] == "Acme Corporation"
-    assert anonymization_map["[ENTITY_GPE_3]"] == "New York City"
-    assert anonymization_map["[ENTITY_EMAIL_4]"] == "john.smith@acme.com"
+    assert anonymization_map["[ENTITY_ORG_1]"] == "Acme Corporation"
+    assert anonymization_map["[ENTITY_GPE_1]"] == "New York City"
+    assert anonymization_map["[ENTITY_EMAIL_1]"] == "john.smith@acme.com"
 
 def test_deanonymize():
     anonymized_text = "[ENTITY_PERSON_1] works at [ENTITY_ORG_2] in [ENTITY_GPE_3]."
