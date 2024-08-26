@@ -80,7 +80,7 @@ text-anonymizer deanonymize input.txt output.txt --map_file map.json
 
 ## Todo
 
-- [ ] Add tests for if anonymization affects LLM (such as OpenAI) response quality
+- [x] Add tests for if anonymization affects LLM (such as OpenAI) response quality
 - [ ] Add tests for if anonymization affects Reranking (such as Cohere) quality
 - [ ] Change replacements to be realistic instead of placeholders (could possibly affect AI apps)
 - [ ] Improve preservation of specific details (numbers, dates, times) while maintaining anonymity
