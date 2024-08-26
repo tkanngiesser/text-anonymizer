@@ -37,6 +37,8 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install library
         run: poetry install --no-interaction
+      - name: Download spacy model
+        run: python -m spacy download en_core_web_sm
       - name: Run application
         run: poetry run text-anonymizer
       - name: Test with pytest
