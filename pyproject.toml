@@ -90,3 +90,5 @@ extend-select = [
 
 [tool.mypy]
 files = ["src", "tests"]
+[tool.poetry.scripts]
+text_anonymizer = "text_anonymizer.main:main"
